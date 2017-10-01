@@ -2,97 +2,155 @@
 
 namespace MymmiJ\Shapes;
 
-const TEST_VARIABLE = "Testing";
+include 'shapeTraits.php';
+include 'Exceptions.php';
 
-//Cylinders have prismatic properties, and this should be useful to extend later - so the fact that we need exceptions for the circle shouldn't matter
-abstract class Prismatic
+class Cuboid
 {
-    //the apothem is the distance from the centre of a side of a regular polygon to the centre of the polygon - it is analogous to the radius of a circle
-    public function calculate_apothem($sides,$length) { 
-        $result = $length;
+    use Prismatic;
 
-        if($sides === 0) {
-            return $result;
-        } else {
-            $quotient = 180/$sides;
+    private $width;
+    private $depth;
+    private $height;
+    private $face_area;
+    private $volume;
 
-            $two_tan = 2*tan($quotient);
-
-            $result = $length/$two_tan;
-
-            return $result;
+    const CUBOID_FACE_SIDES = 4;
+    
+    function __construct($width, $depth, $height) {
+        if($width <= 0 || $depth <=0 || $height <=0) {
+            throw new ParamException("Value of both radius: " . $radius . " |and height: " . $height ." must be positive when creating a " . get_class($this));
         }
-    }
-    public function calculate_perimeter($sides,$length) {
-        $result = null;
 
-        if($sides === 0) {
-            $result = 2 * M_PI * $length;
-            return $result;
-        } else {
-            $result = $sides * $length;
-            return $result;
+        //for square cuboids
+        $this->width = $width;
+        $this->depth = $depth;
+        $this->height = $height;
+        $this->volume = 1; //as fall-back value in case we need to overload to create generic unit cuboids later
+
+        //calculating the volume assuming the cuboid is square
+        $this->volume = $this->calculate_volume($this::CUBOID_FACE_SIDES,$this->width,$this->height);
+        //adjusting for rectangles
+        if($width !== $depth) {
+            $this->volume = $this->volume * ($this->depth / $this->width);
         }
+        //this method is less efficient than the obvious method, but generalizes to higher-n polygonal prisms more easily        
+
     }
 
-    public function calculate_face_area($sides,$length) {
-    //A cylinder is effectively a prism with no sides
-        $apothem = $this->calculate_apothem($sides,$length);
-
-        $perimeter = $this->calculate_perimeter($sides,$length);
-
-        $area = ($apothem * $perimeter) / 2; //since pi*r^2 === 2*pi*r * r / 2, (radius * perimeter / 2) = area
-
-        return $area;
-    }
-
-    public function calculate_volume($sides,$length,$height) {
-        $result = null;
-
-        $area = $this->calculate_face_area($sides,$length);
-
-        $result = $area * $height;
-
-        return $result;
+    public function get_volume() {
+        return $this->volume;
     }
 }
 
-class Cuboid extends Prismatic
+class Cylinder
 {
-    //for the case where Cuboid is a regular polygonal prism
-    function __construct($length,$height) {
+    use Prismatic;
 
+    private $radius;
+    private $height;
+    private $face_area;
+    private $volume;
+
+    const CYLINDER_FACE_SIDES = 0;
+
+    function __construct($radius,$height) {
+        if($radius <= 0 || $height <=0) {
+            throw new ParamException("Value of both radius: " . $radius . " |and height: " . $height ." must be positive when creating a " . get_class($this));
+        }
+
+
+        $this->radius = $radius;
+        $this->height = $height;
+        $this->volume = 1;
+
+        $this->volume = $this->calculate_volume($this::CYLINDER_FACE_SIDES,$this->radius,$this->height);
     }
-    //for the case where Cuboid is an irregular polygonal prism
-    function __construct($length1,$length2,$height) {
 
+    public function get_volume() {
+        return $this->volume;
     }
-
 }
 
-class Cylinder extends Prismatic
+class RectangularPyramid extends Cuboid
 {
-    function __construct() {
-        
-    }
+    use Pyramidic;
 }
 
+class Cone extends Cylinder
+{
+    use Pyramidic;
+}
+
+class TrianglePyramid
+{
+    use Pyramidic;
+
+    private $side1,$side2,$side3;
+    private $face_height;
+    private $height;
+    private $volume;
+
+    const TRIANGLE_FACE_SIDES = 3;
+
+    function __construct($side1,$side2,$side3,$height) {
+        if($side1 <= 0 || $side2 <=0 || $side3 <=0 || $height <=0) {
+            throw new ParamException("Value of all sides: " . $side1 . " | ". $side2 . " | " . $side3 . " |and height: " . $height ." must be positive when creating a " . get_class($this));
+        }
+
+        $this->side1 = $side1;
+        $this->side2 = $side2;
+        $this->side3 = $side3;
+        $this->height = $height;
+
+        $this->volume = $this->calculate_volume($this::TRIANGLE_FACE_SIDES,$this->side1,$this->height); //equilateral triangle only at present
+    }
+
+    public function get_volume() {
+        return $this->volume;
+    }
+}
 
 class Runner
 {
-    public function run($test) {
-        try {
-            $construct_cuboid_test = new Cuboid();
-            $construct_cylinder_test = new Cylinder();
 
-            echo $construct_cuboid_test->calculate_perimeter(5,4) . PHP_EOL;
-            echo $construct_cylinder_test->calculate_volume(0,5,10) . PHP_EOL;
+    public function quick_debug_shape($the_shape) {
+        echo "<p>" . get_class($the_shape) . " volume:" . $the_shape->get_volume() . "</p>" . PHP_EOL;
+    }
+
+    public function quick_debug_shapes($the_shapes) {
+        foreach($the_shapes as $i => $value) {
+            $this->quick_debug_shape($value);
+        }
+
+    }
+
+    public function run() {
+        try {
+            $array = array(
+                new Cuboid(5.5,4.5,10),
+                new Cylinder(5,10),
+                new TrianglePyramid(3,3,3,10),
+                new RectangularPyramid(5,5,10),
+                new RectangularPyramid(5,7,10),
+                new Cone(5,10),
+            );
+
+            try {
+                $error_cone = new Cone(-5,10);
+            } catch (ParamException $e) {
+                echo $e->getMessage() . PHP_EOL;
+            }
+
+            $this->quick_debug_shapes($array);
+
+            
         } catch (Exception $e)
         {
-            echo $e->getMessage(). PHP_EOL;
+            echo $e->getMessage() . PHP_EOL;
         }
     }
 }
 
-$runner = new Runner(); //according to style guide this should be in a separate file, as should the active classes; however for convenience of reading it is included here to be refactored at a later date
-$runner->run(TEST_VARIABLE);
+$runner = new Runner();
+$runner->run();
