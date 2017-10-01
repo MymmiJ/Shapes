@@ -68,11 +68,7 @@ trait Pyramidic
 
         $area = $this->calculate_face_area($sides,$length);
 
-        //echo "<p>Area : " . $area . "</p>";
-
         $result = ($area * $height) / 3;
-
-        //echo "<p>Volume : " . $result . "</p>";
 
         return $result;
     }
