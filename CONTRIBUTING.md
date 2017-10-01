@@ -3,7 +3,7 @@ Contributions via Pull Requests on [Github](https://github.com/MymmiJ/shapes).
 
 ## Pull Requests
 
-- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
+- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``. --this has pretty much fallen by the wayside but it's an aspiration.
 
 - **Document any change in behaviour**
 

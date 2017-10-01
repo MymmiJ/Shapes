@@ -1,5 +1,5 @@
 {
-    "name": "MymmiJ/shapes",
+    "name": "MymmiJ/Shapes",
     "type": "library",
     "description": "Library package for processing shapes.",
     "keywords": [
@@ -8,13 +8,13 @@
         "geometry",
         "3D"
     ],
-    "homepage": "https://github.com/MymmiJ/shapes",
+    "homepage": "https://github.com/MymmiJ/Shapes",
     "license": "MIT",
     "authors": [
         {
             "name": "Jimmy MacGregor",
             "email": "jimmy.macgregor@futurenet.com",
-            "homepage": "http://www.example.com",
+            "homepage": "https://github.com/MymmiJ/Shapes",
             "role": "Audience Development"
         }
     ],
@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Github\\Shapes\\": "src"
+            "MymmiJ\\Shapes\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Github\\Shapes\\": "tests"
+            "MymmiJ\\Shapes\\": "tests"
         }
     },
     "scripts": {
