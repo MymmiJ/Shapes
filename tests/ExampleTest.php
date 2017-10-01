@@ -1,6 +1,6 @@
 <?php
 
-namespace League\Skeleton;
+namespace MymmiJ\Shapes;
 
 class ExampleTest extends \PHPUnit\Framework\TestCase
 {

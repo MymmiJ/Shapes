@@ -1,19 +1,21 @@
 {
-    "name": ":vendor/:package_name",
+    "name": "MymmiJ/shapes",
     "type": "library",
-    "description": ":package_description",
+    "description": "Library package for processing shapes.",
     "keywords": [
-        ":vendor",
-        ":package_name"
+        "MymmiJ",
+        "shapes",
+        "geometry",
+        "3D"
     ],
-    "homepage": "https://github.com/:vendor/:package_name",
+    "homepage": "https://github.com/MymmiJ/shapes",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website",
-            "role": "Developer"
+            "name": "Jimmy MacGregor",
+            "email": "jimmy.macgregor@futurenet.com",
+            "homepage": "http://www.example.com",
+            "role": "Audience Development"
         }
     ],
     "require": {
@@ -25,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            ":vendor\\:package_name\\": "src"
+            "Github\\Shapes\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            ":vendor\\:package_name\\": "tests"
+            "Github\\Shapes\\": "tests"
         }
     },
     "scripts": {

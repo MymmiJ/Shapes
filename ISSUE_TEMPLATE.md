@@ -1,27 +1,5 @@
 <!-- Provide a general summary of the issue in the Title above -->
 
-## Detailed description
+## Thank you for your interest in pointing out an issue with this project
 
-Provide a detailed description of the change or addition you are proposing.
-
-Make it clear if the issue is a bug, an enhancement or just a question.
-
-## Context
-
-Why is this change important to you? How would you use it?
-
-How can it benefit other users?
-
-## Possible implementation
-
-Not obligatory, but suggest an idea for implementing addition or change.
-
-## Your environment
-
-Include as many relevant details about the environment you experienced the bug in and how to reproduce it.
-
-* Version used (e.g. PHP 5.6, HHVM 3):
-* Operating system and version (e.g. Ubuntu 16.04, Windows 7):
-* Link to your project:
-* ...
-* ...
+Please submit the issue but follow up with an email, Slack message or phone call to make sure I am aware of the issue.
