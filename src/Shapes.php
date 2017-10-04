@@ -2,8 +2,8 @@
 
 namespace MymmiJ\Shapes;
 
-include 'shapeTraits.php';
-include 'Exceptions.php';
+require_once 'shapeTraits.php';
+require_once 'Exceptions.php';
 
 class Cuboid
 {
